@@ -16,12 +16,12 @@ Next.js 15 + Supabase starter for shipping vibe-coded apps fast. Clone, provisio
 ## Quick start
 
 ```bash
-bun install
-cp .env.example .env.local   # fill in your Supabase keys
-bun dev
+pnpm install
+# Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to .env.local
+pnpm dev
 ```
 
-Open http://localhost:3000. Edit `app/page.tsx` to start building.
+Open http://localhost:3000. The homepage is the working tenancy dashboard.
 
 ## Provisioning a new project
 

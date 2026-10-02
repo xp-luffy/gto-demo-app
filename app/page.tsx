@@ -9,6 +9,7 @@ export default async function Home() {
   const currentSales = portfolio.reduce((sum, tenant) => sum + tenant.currentSales, 0);
   const monthlyRent = portfolio.reduce((sum, tenant) => sum + Math.max(tenant.currentSales * tenant.gto_rate / 100, tenant.min_monthly_rent), 0);
   const growing = portfolio.filter((tenant) => tenant.score !== null && tenant.score > 100).length;
+  const declining = portfolio.filter((tenant) => tenant.score !== null && tenant.score < 70).length;
   return (
     <AppShell active="/">
       <PageHeading eyebrow={"Portfolio overview · " + currentMonthLabel()} title="Good morning, Alex" subtitle="A clear view of tenant performance across Harbour Point." action={<Link className="button button-primary" href="/tenants/new">＋ Add tenant</Link>} />
@@ -16,7 +17,7 @@ export default async function Home() {
         <article className="kpi-card"><div className="kpi-top">Portfolio sales <span className="kpi-icon">↗</span></div><div className="kpi-value">{money(currentSales)}</div><div className="kpi-foot">Sales recorded this month</div></article>
         <article className="kpi-card"><div className="kpi-top">Projected GTO rent <span className="kpi-icon">＄</span></div><div className="kpi-value">{money(monthlyRent)}</div><div className="kpi-foot">GTO or minimum rent, whichever is higher</div></article>
         <article className="kpi-card"><div className="kpi-top">Active tenants <span className="kpi-icon">▦</span></div><div className="kpi-value">{portfolio.length.toString().padStart(2, "0")}</div><div className="kpi-foot">Across one managed property</div></article>
-        <article className="kpi-card"><div className="kpi-top">Growing this month <span className="kpi-icon">↗</span></div><div className="kpi-value">{growing.toString().padStart(2, "0")} <span style={{fontSize:12,color:"#829087"}}>of {portfolio.length.toString().padStart(2, "0")}</span></div><div className="kpi-foot">Compared with last month</div></article>
+        <article className="kpi-card"><div className="kpi-top">Needs attention <span className="kpi-icon">!</span></div><div className="kpi-value">{declining.toString().padStart(2, "0")} <span style={{fontSize:12,color:"#829087"}}>of {portfolio.length.toString().padStart(2, "0")}</span></div><div className="kpi-foot">Sales below 70% of last month</div></article>
       </section>
       <div className="content-grid">
         <section className="panel">
@@ -28,7 +29,7 @@ export default async function Home() {
         <aside className="panel ranking-panel"><div className="panel-header"><div><div className="panel-title">Top performers</div><div className="panel-subtitle">Sales growth this month</div></div><span className="kpi-icon">✦</span></div>
           {portfolio.slice(0,4).map((tenant,index)=><Link className="ranking-item" href={"/tenants/"+tenant.id} key={tenant.id}><span className="rank-number">0{index+1}</span><span className="rank-copy"><strong>{tenant.name}</strong><small>{tenant.category ?? "Tenant"}</small></span><span className="rank-score">{tenant.score === null ? "New" : Math.round(tenant.score) + "%"}</span></Link>)}
           {portfolio.length===0&&<div className="empty-state">Your tenant rankings will appear here.</div>}
-          <div className="insight-card"><div className="insight-label">Portfolio pulse</div><p>{growing ? growing + " tenant" + (growing===1 ? " is" : "s are") + " growing against last month." : "Sales trends update automatically as you log daily turnover."}</p></div>
+          <div className="insight-card"><div className="insight-label">Portfolio pulse</div><p>{declining ? declining + " tenant" + (declining===1 ? " is" : "s are") + " below the 70% sales threshold." : growing ? growing + " tenant" + (growing===1 ? " is" : "s are") + " growing against last month." : "Sales trends update automatically as you log daily turnover."}</p></div>
         </aside>
       </div>
       <div className="footer-note">Numbers update when sales are logged · Currency shown in SGD</div>

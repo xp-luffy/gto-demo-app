@@ -2,28 +2,28 @@
 
 ## Sprint 1 — Database + Seed
 **Goal:** Schema live with demo data.
-- [ ] Create tenants, daily_sales, billing_periods tables (migration SQL)
-- [ ] Seed 5 tenants with 30 days of sales history + 1 billing period each
-- [ ] Verify tables queryable in Supabase studio
+- [x] Create tenants, daily_sales, billing_periods tables (migration SQL)
+- [x] Seed 5 tenants with 30 days of sales history + 1 billing period each
+- [x] Verify tables queryable in Supabase studio
 **DoD:** `select count(*) from daily_sales` returns ≥ 150 rows.
 
 ## Sprint 2 — Tenant CRUD + Sales Entry  ◀ v1 FUNCTIONAL MILESTONE
 **Goal:** Core engine works end-to-end.
-- [ ] Data-access layer: `lib/data/tenants.ts`, `lib/data/sales.ts`
-- [ ] Tenants list page + detail page
-- [ ] Add/edit tenant form (name, category, GTO %, min rent)
-- [ ] Daily sales entry form on tenant detail page
-- [ ] Sales history table on tenant detail (last 30 days)
-- [ ] All pages render without login
+- [x] Data-access layer: `lib/data/queries.ts`
+- [x] Tenants list page + detail page
+- [x] Add/edit tenant form (name, category, GTO %, min rent)
+- [x] Daily sales entry form on tenant detail page
+- [x] Sales history table on tenant detail (last 30 days)
+- [x] All pages render without login
 **DoD:** Add a tenant → log a sales entry → it appears in the table. App usable by anonymous visitor.
 
 ## Sprint 3 — Billing Calculation + Dashboard
 **Goal:** Auto-billing + portfolio ranking.
-- [ ] `lib/billing/calc.ts` — GTO rent vs min rent, pick higher
-- [ ] Billing page: monthly periods per tenant
-- [ ] Recalculate on new sales entry (server-side function)
-- [ ] Dashboard: all tenants ranked by performance score
-- [ ] Trend sparkline per tenant (simple SVG)
+- [x] `lib/billing/calc.ts` — GTO rent vs min rent, pick higher
+- [x] Billing page: monthly periods per tenant
+- [x] Recalculate on new, edited, or deleted sales entry (server-side function)
+- [x] Dashboard: all tenants ranked by performance score
+- [x] Trend sparkline per tenant (simple SVG)
 **DoD:** Log a new sales entry → billing final_rent updates. Dashboard ranks tenants. ← SUCCESS SCENARIO COMPLETE
 
 ## Sprint 4 — Lock It Down
