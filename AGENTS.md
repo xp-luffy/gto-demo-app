@@ -10,6 +10,10 @@
 - `lint`: `next lint`
 - `start`: `next start`
 
+## Decisions
+
+- Sprint 3 scope: surface portfolio declines and billing status
+
 ## Notes
 
 - Sprint 2 objective: ship working tenant sales workflow
